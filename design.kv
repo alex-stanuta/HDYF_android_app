@@ -1,0 +1,177 @@
+<LoginScreen>:
+	GridLayout:
+		cols: 1
+		GridLayout:
+			cols: 1
+			padding: 15, 15
+			spacing: 20, 20
+			Label:
+				text: 'User Login'
+				font_size: '20sp'
+			RelativeLayout:
+				TextInput:
+					size_hint: (0.6, 0.6)
+					pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+					multiline: False
+					write_tab: False
+					hint_text: 'Username'
+					id: username
+			RelativeLayout:
+				TextInput:
+					size_hint: (0.6, 0.6)
+					pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+					write_tab: False
+					multiline: False
+					hint_text: 'Password'
+					password: True
+					id: password
+			RelativeLayout:
+				Button:
+					text: 'Login'
+					on_press: root.login(root.ids.username.text, root.ids.password.text)
+					size_hint: (0.3, 0.6)
+					pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+			Label:
+				id: login_error
+				text: ''	
+		GridLayout:
+			cols: 2
+			size_hint: (0.1, 0.1)
+			padding: 10, 10
+			spacing: 10, 0
+			Button:
+				text: 'Forgot Password?'
+				background_color: (1, 1, 1, 0)
+				opacity: 1 if self.state == 'normal' else 0.4
+				color: 0.1, 0.7, 1, 1
+				on_press: root.forgot_pass()
+			Button:
+				text: 'Sign Up'
+				background_color: (1, 1, 1, 0)
+				opacity: 1 if self.state == 'normal' else 0.4
+				color: 0.1, 0.7, 1, 1
+				on_press: root.sign_up()
+
+<SignUpScreen>:
+	GridLayout:
+		cols: 1
+		padding: 15, 15
+		spacing: 20, 20
+		Label:
+			text: 'Sign up for a head trip!'
+			font_size: '25sp'
+		RelativeLayout:
+			TextInput:
+				size_hint: (0.6, 0.6)
+				pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+				write_tab: False
+				multiline: False
+				id: username
+				hint_text: 'New Username'
+		RelativeLayout:
+			TextInput:
+				size_hint: (0.6, 0.6)
+				pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+				write_tab: False
+				multiline: False
+				id: password
+				password: True
+				hint_text: 'New Password'
+		RelativeLayout:
+			Button:
+				size_hint: (0.3, 0.6)
+				pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+				text: 'Submit'
+				on_press: root.add_user(root.ids.username.text, root.ids.password.text)
+
+<SignUpSuccess>:
+	GridLayout:
+		cols: 1
+		Label:
+			text: 'You have successfully signed up!'
+			font_size: '25sp'
+		RelativeLayout:
+			Button:
+				size_hint: (0.3, 0.6)
+				pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+				text: 'Back to Start!'
+				on_press: root.back2start()
+
+<MainScreen>:
+	GridLayout:
+		cols: 1
+		padding: 30, 30
+		spacing: 25, 25
+		RelativeLayout:
+			ImageButton:
+				on_press: root.log_out()
+				source: 'logout_hover.png' if self.hovered else 'logout_nothover.png'
+				size_hint: (0.3, 0.3)
+				pos_hint: {'center_x': 0.95, 'center_y': 0.85}
+		Label:
+			text: 'How do you feel now?'
+			font_size: '25sp'
+		TextInput:
+			write_tab: False
+			multiline: False
+			id: feel
+			hint_text: 'Try writing feelings, like: sad, happy or unloved'
+		RelativeLayout:
+			Button:
+				size_hint: (0.3, 0.6)
+				pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+				text: 'Inspire me!'
+				on_press: root.quote(root.ids.feel.text)
+		ScrollView:
+			Label:
+				id: quote
+				text_size: self.width, None
+				halign: 'center'
+				valign: 'center'
+				size_hint_y: None
+	    		height: self.texture_size[1]
+				text: ''
+
+<ForgotPassword>:
+	GridLayout:
+		cols: 1
+		GridLayout:
+			cols: 1
+			padding: 15, 15
+			spacing: 20, 20
+			Label:
+				text: 'Retrieve your password!'
+				font_size: '20sp'
+			TextInput:
+				write_tab: False
+				multiline: False
+				id: username
+				hint_text: 'Username'
+			Label:
+				id: password
+				text: ''
+		GridLayout:
+			cols: 2
+			padding: 15, 15
+			spacing: 20, 20
+			size_hint: (0.2, 0.2)
+			Button:
+				text: 'Get Password'
+				size_hint: (0.1, 0.1)
+				on_press: root.retrieve(root.ids.username.text)
+			Button:
+				text: 'Return to Log In'
+				size_hint: (0.1, 0.1)
+				on_press: root.back_login()
+
+<RootWidget>:
+	LoginScreen:
+		name: 'login_screen'
+	SignUpScreen:
+		name: 'signup_screen'
+	SignUpSuccess:
+		name: 'signup_success'
+	MainScreen:
+		name: 'main_screen'
+	ForgotPassword:
+		name: 'forgot_password'
